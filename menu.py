@@ -1,20 +1,27 @@
 from functions import *
-from services import *
+from services import services
+from rich.console import Console
+from rich.panel import Panel
+
+console = Console(force_terminal=True, color_system="truecolor")
+
 
 def show_menu():
     while True:
-        print("-" * 27)
-        print("|" + "-" * 3 + "Service Status Tool" + "-" * 3 + "|")
-        print("-" * 27)
-        print(f"| 1. {'Show all services':<20} |")
-        print(f"| 2. {'Show one service':<20} |")
-        print(f"| 3. {'Add service':<20} |")
-        print(f"| 4. {'Change status':<20} |")
-        print(f"| 5. {'Delete service':<20} |")
-        print(f"| 6. {'Exit':<20} |")
-        print("-" * 27)
-        choice = input(f"| {'You choice... ':<15}")
-        print("-" * 27)
+        console.print(Panel.fit(
+            "[bold cyan]1.[/bold cyan] Show all services\n"
+            "[bold cyan]2.[/bold cyan] Show one service\n"
+            "[bold cyan]3.[/bold cyan] Add service\n"
+            "[bold cyan]4.[/bold cyan] Change status\n"
+            "[bold cyan]5.[/bold cyan] Delete service\n"
+            "[bold red]6.[/bold red] Exit",
+            title="[bold magenta]Service Status Tool [/bold magenta]",
+            border_style="cyan"
+        ))
+
+        choice = input("Your choice... ").strip()
+        console.print()
+
 
         if choice == "1":
             show_services(services)
@@ -32,12 +39,8 @@ def show_menu():
             delete_service(services)
 
         elif choice == "6":
-            print("-" * 27)
-            print("| Services Tool Stopped...")
-            print("-" * 27)
+            console.print("[bold red]Services Tool Stopped... Goodbye![/bold red]")
             break
 
         else:
-            print("| Wrong Choice. Try again.")
-
-
+            console.print("[bold yellow] Wrong Choice. Try again.[/bold yellow]\n")
